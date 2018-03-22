@@ -1,40 +1,23 @@
 package com.training.playoff;
 
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Playoff {
-    HashMap<String, Team> teams;
+    private List<Team> teams;
 
     public Playoff(String[] qualificationsResults) {
         this.teams = TeamsFactory.createTeams(qualificationsResults);
     }
 
     public String[] layout() {
-        SortedSet<Team> teams = new TreeSet<>( this.teams.values());
-        String[] layout = {gamePresentationFromTeams(teamFromPosition(teams,1) , teamFromPosition(teams,4)),
-                gamePresentationFromTeams(teamFromPosition(teams,2) , teamFromPosition(teams,3)) };
-        return layout;
+        return new String[]{gamePresentationFromTeams(teams.get(0), teams.get(3)),
+                gamePresentationFromTeams(teams.get(1), teams.get(2))};
     }
 
-    private Team teamFromPosition(SortedSet<Team> sortedTeams, int position) {
-        Iterator<Team> teamIterator = sortedTeams.iterator();
-        int i = 1;
-        Team team = null;
-        while (i <= position && teamIterator.hasNext()) {
-            team = teamIterator.next();
-            i++;
-        }
-        return team;
-    }
-    private String gamePresentationFromTeams(Team team1, Team team2){
-        StringBuilder gameBuilder = new StringBuilder();
-        gameBuilder.append(team1.getName());
-        gameBuilder.append(" vs ");
-        gameBuilder.append(team2.getName());
-        return gameBuilder.toString();
+    private String gamePresentationFromTeams(Team team1, Team team2) {
+        return team1.getName() +
+                " vs " +
+                team2.getName();
     }
 }

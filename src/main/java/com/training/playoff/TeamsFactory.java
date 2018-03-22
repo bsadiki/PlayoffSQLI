@@ -1,9 +1,13 @@
 package com.training.playoff;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+
 
 public class TeamsFactory {
-    static HashMap<String, Team> createTeams(String[] qualificationsResults) {
+    static List<Team> createTeams(String[] qualificationsResults) {
         HashMap<String, Team> teams = new HashMap<>();
         for (String qualificationsResult : qualificationsResults) {
             String[] twoTeams = qualificationsResult.split(" ");
@@ -11,7 +15,9 @@ public class TeamsFactory {
             firstTeam.winGame();
             teamFromMap(teams, twoTeams[1]);
         }
-        return teams;
+        List<Team> teamList = new ArrayList<>( teams.values());
+        Collections.sort(teamList);
+        return teamList;
     }
 
     private static Team teamFromMap(HashMap<String, Team> teams, String teamSymbol) {
